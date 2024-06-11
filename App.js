@@ -1,17 +1,43 @@
-// App.js
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import HomeScreen from './screens/HomeScreen';
-
+ 
+import HomeScreen from "./screens/HomeScreen";
+import SignUpScreen from "./screens/SignUp";
+import ShoppingCartScreen from "./screens/ShoppingCart";
+import LoginScreen from "./screens/Login";
+import SearchScreen from "./screens/Search";
+import ProductDetailsScreen from "./screens/Product_Details";
 const Drawer = createDrawerNavigator();
-
-export default function App() {
+ 
+ 
+const MainStack = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="All Movies" component={HomeScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
+    <Stack.Navigator>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Product_Details"
+      component={ProductDetailsScreen} />    
+    </Stack.Navigator>
+  )
 }
+ 
+const App = () => {
+  return (
+   
+        <NavigationContainer>
+          <Drawer.Navigator>
+            <Drawer.Screen name="Noon" component={MainStack} />
+            <Drawer.Screen name="Search" component={SearchScreen} />
+            <Drawer.Screen name="SignUp" component={SignUpScreen} />
+            <Drawer.Screen name="Login" component={LoginScreen} />
+            <Drawer.Screen name="ShoppingCart" component={ShoppingCartScreen} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+   
+  )
+}
+export default App;
+ 
+
