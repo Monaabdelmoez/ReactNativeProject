@@ -16,14 +16,14 @@ const SearchScreen = ({ navigation }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('https://retoolapi.dev/pmRHmd/data');
+        const response = await axios.get('https://retoolapi.dev/A64tOl/data');
         console.log('API Response:', response.data);
         if (!Array.isArray(response.data)) {
           console.error('Invalid API response: Expected an array of products');
           return;
         }
         const filteredData = response.data.filter(product =>
-           product.name.toLowerCase().includes(searchText.toLowerCase())
+           product.productname.toLowerCase().includes(searchText.toLowerCase())
         );
         console.log('Filtered Data:', filteredData);
         setResults(filteredData);
@@ -57,7 +57,7 @@ const SearchScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Product_Details', { productId: item.id })}
       >
         <Image source={{ uri: item.logo }} style={styles.productImage} />
-        <Text style={styles.productName}>{item.name}</Text>
+        <Text style={styles.productName}>{item.productname}</Text>
         <Text style={styles.productDescription}>{item.description}</Text>
         <Text style={styles.productPrice}>${item.price}</Text>
       </TouchableOpacity>
