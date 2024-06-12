@@ -6,6 +6,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import HomeScreen from './screens/HomeScreen';
 import SignUpScreen from './screens/SignUp';
+import CheckoutScreen from './screens/CheckoutScreen';
+import ConfirmationScreen from './screens/ConfirmationScreen';
 import ShoppingCartScreen from './screens/ShoppingCart';
 import LoginScreen from './screens/Login';
 import SearchScreen from './screens/Search';
@@ -18,8 +20,11 @@ const Drawer = createDrawerNavigator();
 const MainStack = (navigation) => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Product_Details" component={ProductDetailsScreen} />
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+      <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
+      
     </Stack.Navigator>
   );
 };
@@ -45,7 +50,7 @@ const App = () => {
     <CartProvider>
       <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name="Noon" component={MainStack} />
+          <Drawer.Screen name="Home" component={MainStack} />
           <Drawer.Screen name="Search" component={SearchScreen} />
           <Drawer.Screen name="SignUp" component={SignUpScreen} />
           <Drawer.Screen name="Login" component={LoginScreen} />
