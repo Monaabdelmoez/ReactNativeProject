@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 const MainStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Product_Details" component={ProductDetailsScreen} />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
@@ -33,7 +33,7 @@ const App = () => {
     <CartProvider>
       <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name="Noon" component={MainStack} />
+          <Drawer.Screen name="Home" component={MainStack} />
           <Drawer.Screen name="Search" component={SearchScreen} />
           <Drawer.Screen name="SignUp" component={SignUpScreen} />
           <Drawer.Screen name="Login" component={LoginScreen} />

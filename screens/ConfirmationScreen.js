@@ -13,7 +13,7 @@ const ConfirmationScreen = ({ navigation, route }) => {
       </Text>
       <Button
         title="Back to Shopping"
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('Home')}
       />
     </View>
   );
