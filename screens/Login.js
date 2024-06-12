@@ -1,4 +1,6 @@
+import axios from "axios";
 import  { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   TextInput,
@@ -7,15 +9,44 @@ import {
   StyleSheet,
 } from "react-native";
 
-const Login = () => {
-  const [password, setPassword] = useState("");
+const Login = ({navigation}) => {
+  
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const getdata = async()=>{
+   
+    try {
+      const us = await AsyncStorage.getItem('users');
+      if (us !== null) {
+        const usersArray = JSON.parse(us); 
+        const currentUser = usersArray.find(user => user.email === email);
+        if (currentUser) {
+          await AsyncStorage.setItem('useremail', currentUser.email);
+          await AsyncStorage.setItem('username', currentUser.username);
+          navigation.navigate('HomeScreen');
+        } else {
+          console.log('User not found.');
+         
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving user data: ', error);
+   
+    }
+
+    
+
+  };
+
+
   const handleSubmit = () => {
     let isValid = true;
+
+   
 
     if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long.");
@@ -32,15 +63,15 @@ const Login = () => {
     }
 
     if (isValid) {
-      // Submit the form
-
+      
+      getdata()
       console.log("Password:", password);
       console.log("Email:", email);
     }
   };
 
   const isValidEmail = (email) => {
-    // Simple email validation pattern
+  
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return emailRegex.test(email);
   };
@@ -94,7 +125,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
+    
     alignItems: "center",
     paddingHorizontal: 40,
     backgroundColor:'#f3f3f336',
