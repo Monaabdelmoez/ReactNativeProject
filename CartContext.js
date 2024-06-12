@@ -1,9 +1,40 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+
+
+  useEffect(() => {
+    loadCartFromStorage();
+  }, []);
+
+  useEffect(() => {
+    saveCartToStorage();
+  }, [cart]);
+
+  const loadCartFromStorage = async () => {
+    try {
+      const storedCart = await AsyncStorage.getItem('cart');
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
+    } catch (error) {
+      console.error('Failed to load cart from storage', error);
+    }
+  };
+
+  const saveCartToStorage = async () => {
+    try {
+      await AsyncStorage.setItem('cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error('Failed to save cart to storage', error);
+    }
+  };
+
+
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -33,8 +64,23 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    setCart((prevCart) => {
+      if (newQuantity < 1) {
+        // If newQuantity is less than 1, remove the item from the cart
+        return prevCart.filter((item) => item.id !== id);
+      } else {
+        return prevCart.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        );
+      }
+    });
+  };
+  
+
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart , updateQuantity }}>
       {children}
     </CartContext.Provider>
   );
