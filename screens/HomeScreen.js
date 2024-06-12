@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://retoolapi.dev/pmRHmd/data')
+    fetch('https://retoolapi.dev/A64tOl/data')
       .then(response => response.json())
       .then(data => {
         setProducts(data);

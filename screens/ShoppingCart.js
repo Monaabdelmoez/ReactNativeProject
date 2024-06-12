@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { CartContext } from '../CartContext'; // Correct import path
 
-const ShoppingCartScreen = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
+const ShoppingCartScreen = ({ navigation }) => {
+  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
 
   // Calculate the total price of all items in the cart
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -14,13 +14,21 @@ const ShoppingCartScreen = () => {
       <Image source={{ uri: item.logo }} style={styles.cartItemImage} />
       <View style={styles.cartItemDetails}>
         <Text style={styles.cartItemName}>{item.name}</Text>
-        {/* <Text style={styles.cartItemDescription}>{item.description}</Text> */}
         <Text style={styles.cartItemPrice}>${item.price}</Text>
         <Text style={styles.cartItemQuantity}>Quantity: {item.quantity}</Text>
       </View>
-      <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item.id)}>
-        <Icon name="trash-outline" size={24} color="#fff" />
-      </TouchableOpacity>
+
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity style={styles.decreaseButton} onPress={() => updateQuantity(item.id, item.quantity - 1)}>
+          <Icon name="remove-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.increaseButton} onPress={() => updateQuantity(item.id, item.quantity + 1)}>
+          <Icon name="add-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item.id)}>
+          <Icon name="trash-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -33,11 +41,12 @@ const ShoppingCartScreen = () => {
           <FlatList
             data={cart}
             renderItem={renderCartItem}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={styles.cartList}
           />
           <View style={styles.invoiceContainer}>
             <Text style={styles.invoiceText}>Total: ${totalPrice.toFixed(2)}</Text>
+            <Button title="Checkout" onPress={() => navigation.navigate('CheckoutScreen')} />
           </View>
         </>
       )}
@@ -58,6 +67,10 @@ const styles = StyleSheet.create({
   },
   cartList: {
     paddingBottom: 20,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   cartItemContainer: {
     flexDirection: 'row',
@@ -86,11 +99,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  cartItemDescription: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 5,
-  },
   cartItemPrice: {
     fontSize: 14,
     color: '#888',
@@ -102,7 +110,21 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   removeButton: {
-    backgroundColor: '#ff6347',
+    backgroundColor: '#000000',
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  increaseButton: {
+    backgroundColor: '#00ff00',
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  decreaseButton: {
+    backgroundColor: '#ff0000',
     borderRadius: 20,
     padding: 5,
     justifyContent: 'center',
