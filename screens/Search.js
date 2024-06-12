@@ -23,7 +23,7 @@ const SearchScreen = ({ navigation }) => {
           return;
         }
         const filteredData = response.data.filter(product =>
-           product.productname.toLowerCase().includes(searchText.toLowerCase())
+           product.name.toLowerCase().includes(searchText.toLowerCase())
         );
         console.log('Filtered Data:', filteredData);
         setResults(filteredData);
@@ -57,7 +57,7 @@ const SearchScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Product_Details', { productId: item.id })}
       >
         <Image source={{ uri: item.logo }} style={styles.productImage} />
-        <Text style={styles.productName}>{item.productname}</Text>
+        <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productDescription}>{item.description}</Text>
         <Text style={styles.productPrice}>${item.price}</Text>
       </TouchableOpacity>
