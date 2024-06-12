@@ -1,19 +1,26 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { CartContext } from '../CartContext'; // Correct import path
 
-
 const ShoppingCartScreen = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, removeFromCart } = useContext(CartContext);
+
+  // Calculate the total price of all items in the cart
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const renderCartItem = ({ item }) => (
     <View style={styles.cartItemContainer}>
-      <Image source={{ uri: item.image }} style={styles.cartItemImage} />
+      <Image source={{ uri: item.logo }} style={styles.cartItemImage} />
       <View style={styles.cartItemDetails}>
         <Text style={styles.cartItemName}>{item.name}</Text>
-        <Text style={styles.cartItemDescription}>{item.description}</Text>
+        {/* <Text style={styles.cartItemDescription}>{item.description}</Text> */}
         <Text style={styles.cartItemPrice}>${item.price}</Text>
+        <Text style={styles.cartItemQuantity}>Quantity: {item.quantity}</Text>
       </View>
+      <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item.id)}>
+        <Icon name="trash-outline" size={24} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 
@@ -22,12 +29,17 @@ const ShoppingCartScreen = () => {
       {cart.length === 0 ? (
         <Text style={styles.emptyCartText}>Your cart is empty</Text>
       ) : (
-        <FlatList
-          data={cart}
-          renderItem={renderCartItem}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={styles.cartList}
-        />
+        <>
+          <FlatList
+            data={cart}
+            renderItem={renderCartItem}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={styles.cartList}
+          />
+          <View style={styles.invoiceContainer}>
+            <Text style={styles.invoiceText}>Total: ${totalPrice.toFixed(2)}</Text>
+          </View>
+        </>
       )}
     </View>
   );
@@ -58,10 +70,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    alignItems: 'center',
   },
   cartItemImage: {
-    width: 80,
-    height: 80,
+    width: 60, // Adjust the width of the image
+    height: 60, // Adjust the height of the image
     borderRadius: 5,
   },
   cartItemDetails: {
@@ -82,6 +95,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
     marginTop: 5,
+  },
+  cartItemQuantity: {
+    fontSize: 14,
+    color: '#444',
+    marginTop: 5,
+  },
+  removeButton: {
+    backgroundColor: '#ff6347',
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  invoiceContainer: {
+    padding: 10,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  invoiceText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'right',
   },
 });
 
