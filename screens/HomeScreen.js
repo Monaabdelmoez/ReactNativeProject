@@ -32,7 +32,14 @@ const HomeScreen = ({ navigation }) => {
   const renderProduct = ({ item }) => (
     <View style={styles.productContainer}>
       <TouchableOpacity 
-        onPress={() => navigation.navigate('Product_Details', { productId: item.id })}
+        onPress={() => navigation.navigate('Product_Details', {
+          productId: item.id,
+          productName: item.productname,
+          productDescription: item.description,
+          productPrice: item.price,
+          productImage:item.logo
+          // Add other product details as needed
+        })}
       >
         <Image source={{ uri: item.logo }} style={styles.productImage} />
         <Text style={styles.productName}>{item.productname}</Text>
