@@ -8,10 +8,12 @@ import SignUpScreen from './screens/SignUp';
 import CheckoutScreen from './screens/CheckoutScreen';
 import ConfirmationScreen from './screens/ConfirmationScreen';
 import ShoppingCartScreen from './screens/ShoppingCart';
+import WishListScreen from './screens/WishList';
 import LoginScreen from './screens/Login';
 import SearchScreen from './screens/Search';
 import ProductDetailsScreen from './screens/Product_Details';
 import { CartProvider } from './CartContext'; // Correct import path
+// import { WishListProvider } from './CartContext'; // Correct import path
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -38,6 +40,7 @@ const App = () => {
           <Drawer.Screen name="SignUp" component={SignUpScreen} />
           <Drawer.Screen name="Login" component={LoginScreen} />
           <Drawer.Screen name="ShoppingCart" component={ShoppingCartScreen} />
+          <Drawer.Screen name="WishList" component={WishListScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
     </CartProvider>

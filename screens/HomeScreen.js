@@ -2,9 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
 import { CartContext } from '../CartContext'; // Correct import path
+import { WishListContext } from '../WishListContext';
+import { FontAwesome } from '@expo/vector-icons';
 
 const HomeScreen = ({ navigation }) => {
   const { addToCart } = useContext(CartContext);
+  const { addToList } = useContext(WishListContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,16 +42,25 @@ const HomeScreen = ({ navigation }) => {
           productPrice: item.price,
           productImage:item.logo
           // Add other product details as needed
-        })}
-      >
+        })} >
         <Image source={{ uri: item.logo }} style={styles.productImage} />
         <Text style={styles.productName}>{item.productname}</Text>
         {/* <Text style={styles.productDescription}>{item.description}</Text> */}
         <Text style={styles.productPrice}>${item.price}</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.addToCartButton} onPress={() => addToCart(item)}>
         <Icon name="cart-outline" size={24} color="#fff" />
+        <FontAwesome name="heart" size={24} color="red" />
       </TouchableOpacity>
+
+      {/* <TouchableOpacity style={styles.addToButton} onPress={() => addToList(item)}>
+              
+                <FontAwesome name="heart" size={24} color="red" />
+              
+                <FontAwesome name="heart-o" size={24} color="black" />
+        
+            </TouchableOpacity> */}
     </View>
   );
 
@@ -110,6 +122,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   addToCartButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: '#ff6347', // Example color, can be changed
+    borderRadius: 20,
+    padding: 5,
+  },
+  addToButton: {
     position: 'absolute',
     bottom: 10,
     right: 10,
