@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#007bff',
+    color: 'blue',
   },
   productImage: {
     width: '100%',
