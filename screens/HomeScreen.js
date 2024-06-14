@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const HomeScreen = ({ navigation }) => {
   const { addToCart } = useContext(CartContext);
-  const { addToList } = useContext(WishListContext);
+  // const { addToList } = useContext(WishListContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,7 +51,7 @@ const HomeScreen = ({ navigation }) => {
 
       <TouchableOpacity style={styles.addToCartButton} onPress={() => addToCart(item)}>
         <Icon name="cart-outline" size={24} color="#fff" />
-        <FontAwesome name="heart" size={24} color="red" />
+        {/* <FontAwesome name="heart" size={24} color="red" /> */}
       </TouchableOpacity>
 
       {/* <TouchableOpacity style={styles.addToButton} onPress={() => addToList(item)}>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: '#ff6347', // Example color, can be changed
+    backgroundColor: 'blue', // Example color, can be changed
     borderRadius: 20,
     padding: 5,
   },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: '#ff6347', // Example color, can be changed
+    backgroundColor: 'blue', // Example color, can be changed
     borderRadius: 20,
     padding: 5,
   },

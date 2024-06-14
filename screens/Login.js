@@ -82,9 +82,24 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.formGroup}>{}</View>
-
       <View style={styles.formGroup}>
+        <Text style={styles.h1}>
+          Login
+        </Text>
+      </View>
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>Email :</Text>
+        <TextInput
+          style={[styles.input, emailError ? styles.errorInput : null]}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+      </View>
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>Password :</Text>
         <TextInput
           style={[styles.input, passwordError ? styles.errorInput : null]}
           placeholder="Password"
@@ -102,16 +117,7 @@ const Login = ({navigation}) => {
         ) : null}
       </View>
 
-      <View style={styles.formGroup}>
-        <TextInput
-          style={[styles.input, emailError ? styles.errorInput : null]}
-          placeholder="Email"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-        />
-        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-      </View>
+      
 
       <View style={styles.formGroup}>{}</View>
 
@@ -125,15 +131,25 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     alignItems: "center",
-    paddingHorizontal: 40,
-    backgroundColor:'#f3f3f336',
-    paddingVertical: 150,
+    paddingHorizontal: 50,
+    backgroundColor:'#fff',
+    paddingVertical: 50,
   },
   formGroup: {
     width: "100%",
     marginBottom: 16,
+  },
+  h1:{
+    fontSize:40,
+    fontWeight:'bold',
+    marginVertical:20,
+    textAlign:'center',
+    color:'blue'
+  },
+  label: {
+    marginBottom: 10,
+    color: "blue",
   },
   input: {
     height: 40,
@@ -141,9 +157,9 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 4,
     paddingHorizontal: 12,
-    borderWidth:1,
-    borderColor:'#D6758D',
-    marginBottom:20
+    borderWidth: 1,
+    borderColor: "blue",
+    marginBottom: 2,
   },
   errorInput: {
     borderColor: "red",
@@ -155,12 +171,12 @@ const styles = StyleSheet.create({
   togglePassword: {
     position: "absolute",
     right: 12,
-    top: -50,
+    top: -35,
     color: "#666",
     // margin:10,
   },
   submitButton: {
-    backgroundColor: '#D6758D',
+    backgroundColor: 'blue',
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 20,

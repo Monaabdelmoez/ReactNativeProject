@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View,TouchableOpacity, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { CartContext } from '../CartContext'; // Correct import path
 
 const CheckoutScreen = ({ navigation }) => {
@@ -50,8 +50,8 @@ const CheckoutScreen = ({ navigation }) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Order Summary</Text>
-        <Text>Total Items: {cart.length}</Text>
-        <Text>Total Price: ${totalPrice.toFixed(2)}</Text>
+        <Text style={styles.text}>Total Items: {cart.length}</Text>
+        <Text style={styles.text}>Total Price: ${totalPrice.toFixed(2)}</Text>
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Payment Details</Text>
@@ -79,7 +79,9 @@ const CheckoutScreen = ({ navigation }) => {
           value={paymentDetails.cardHolderName}
           onChangeText={(text) => setPaymentDetails({ ...paymentDetails, cardHolderName: text })}
         />
-        <Button title="Pay Now" onPress={handlePayment} />
+        <TouchableOpacity style={styles.submitButton} onPress={handlePayment}>
+        <Text style={styles.submitButtonText}>Pay Now</Text>
+      </TouchableOpacity>
       </View>
      
     </View>
@@ -91,14 +93,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: '#fff',
+    paddingVertical:50
   },
   section: {
     marginBottom: 20,
+    backgroundColor: '#eee',
+    padding:10,
+    borderRadius:5
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: "blue",
+  },
+  text:{
+    fontWeight:'bold'
   },
   input: {
     borderWidth: 1,
@@ -106,6 +116,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
+  },
+  submitButton: {
+    backgroundColor: "blue",
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    textAlign:'center'
+  },
+  submitButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    width:'100%',
+    textAlign:'center'
   },
 });
 

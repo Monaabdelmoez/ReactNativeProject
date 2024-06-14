@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: '#ff6347', // Example color, can be changed
+    backgroundColor: 'blue', // Example color, can be changed
     borderRadius: 20,
     padding: 5,
   },
