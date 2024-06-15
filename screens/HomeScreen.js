@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
-import { CartContext } from '../CartContext'; // Correct import path
+import Icon from 'react-native-vector-icons/Ionicons'; 
+import { CartContext } from '../CartContext'; 
 import { WishListContext } from '../WishListContext';
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -104,20 +104,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    maxWidth: (Dimensions.get('window').width / 2) - 20, // Adjusting for margins and padding
-    position: 'relative', // Needed for positioning the add to cart button
+    maxWidth: (Dimensions.get('window').width / 2) - 20, 
+    position: 'relative', 
   },
   productImage: {
     width: '100%',
-    height: 100, // Change to a numeric value without quotes
+    height: 100, 
     borderRadius: 5,
   },
   productName: {
-    fontSize: 14, // Increase font size
-    marginTop: 8, // Decrease margin top
-    textShadowColor: '#000', // Add text shadow color
-    // textShadowOffset: { width: .5, height: .5 }, // Add text shadow offset
-    textShadowRadius: 1, // Add text shadow radius
+    fontSize: 14, 
+    marginTop: 8, 
+    textShadowColor: '#000', 
+    textShadowRadius: 1, 
   },
   
   productDescription: {
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: 'blue', // Example color, can be changed
+    backgroundColor: 'blue', 
     borderRadius: 20,
     padding: 5,
   },
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: 'blue', // Example color, can be changed
+    backgroundColor: 'blue', 
     borderRadius: 20,
     padding: 5,
   },

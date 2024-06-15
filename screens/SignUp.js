@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUpScreen = ({ navigation }) => {
   const [users, setusers] = useState([]);
@@ -73,14 +72,7 @@ const SignUpScreen = ({ navigation }) => {
 
       const updatedUsers = [...users, newUser];
 
-      // Convert the updated user array to JSON and store it in AsyncStorage
-      // AsyncStorage.setItem('users', JSON.stringify(updatedUsers))
-      //   .then(() => {
-      //     console.log('User added successfully!');
-      //   })
-      //   .catch(error => {
-      //     console.error('Error adding user: ', error);
-      //   });
+
       try {
         await AsyncStorage.setItem("users", JSON.stringify(updatedUsers));
         navigation.navigate("Login");
@@ -88,11 +80,7 @@ const SignUpScreen = ({ navigation }) => {
         console.error("Failed to save cart items", error);
       }
       data();
-      // await AsyncStorage.setItem('users',users)
-      // console.log('Username:', username);
-      // console.log('Password:', password);
-      // console.log('Email:', email);
-      // console.log('Phone:', phone);
+    
     }
   };
   const data = async () => {
