@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from r
 import { CartContext } from '../CartContext'; // Correct import path
 import { WishListContext } from '../WishListContext';
 import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
   const { addToCart } = useContext(CartContext);
@@ -49,7 +50,15 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.productPrice}>${item.price}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.addToCartButton} onPress={() => addToCart(item)}>
+      <TouchableOpacity style={styles.addToCartButton} 
+      onPress={async () => {
+          if (await AsyncStorage.getItem("useremail")) {
+            addToCart(item);
+          } else {
+            navigation.navigate("Login");
+          }
+        }}
+        >
         <Icon name="cart-outline" size={24} color="#fff" />
         {/* <FontAwesome name="heart" size={24} color="red" /> */}
       </TouchableOpacity>

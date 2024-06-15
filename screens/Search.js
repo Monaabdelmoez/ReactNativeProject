@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { debounce } from 'lodash';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons from react-native-vector-icons
 import { CartContext } from '../CartContext'; // Correct import path
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SearchScreen = ({ navigation }) => {
-  //const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,7 +62,13 @@ const SearchScreen = ({ navigation }) => {
         <Text style={styles.productDescription}>{item.description}</Text>
         <Text style={styles.productPrice}>${item.price}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.addToCartButton} onPress={() => addToCart(item)}>
+      <TouchableOpacity style={styles.addToCartButton} onPress={async () => {
+          if (await AsyncStorage.getItem("useremail")) {
+            addToCart(item);
+          } else {
+            navigation.navigate("Login");
+          }
+        }}>
         <Icon name="cart-outline" size={24} color="#fff" />
       </TouchableOpacity>
     </View>
