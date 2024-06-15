@@ -27,7 +27,7 @@ const Login = ({navigation}) => {
         if (currentUser) {
           await AsyncStorage.setItem('useremail', currentUser.email);
           await AsyncStorage.setItem('username', currentUser.username);
-          navigation.navigate('HomeScreen');
+          navigation.navigate('Home');
         } else {
           console.log('User not found.');
          
