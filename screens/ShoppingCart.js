@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { CartContext } from "../CartContext"; // Correct import path
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ShoppingCartScreen = ({ navigation }) => {
   const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
@@ -19,6 +20,18 @@ const ShoppingCartScreen = ({ navigation }) => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+
+    useEffect(async() => {
+    if (await AsyncStorage.getItem('useremail')) {
+      
+     }
+     else{
+       navigation.navigate('Login')
+     }
+  }, []);
+
+
 
   const renderCartItem = ({ item }) => (
     <View style={styles.cartItemContainer}>
