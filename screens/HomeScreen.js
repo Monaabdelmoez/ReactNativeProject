@@ -2,13 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { CartContext } from '../CartContext'; 
-import { WishListContext } from '../WishListContext';
-import { FontAwesome } from '@expo/vector-icons';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
   const { addToCart } = useContext(CartContext);
-  // const { addToList } = useContext(WishListContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +40,6 @@ const HomeScreen = ({ navigation }) => {
           productDescription: item.description,
           productPrice: item.price,
           productImage:item.logo
-          // Add other product details as needed
         })} >
         <Image source={{ uri: item.logo }} style={styles.productImage} />
         <Text style={styles.productName}>{item.productname}</Text>
@@ -63,13 +60,7 @@ const HomeScreen = ({ navigation }) => {
         {/* <FontAwesome name="heart" size={24} color="red" /> */}
       </TouchableOpacity>
 
-      {/* <TouchableOpacity style={styles.addToButton} onPress={() => addToList(item)}>
-              
-                <FontAwesome name="heart" size={24} color="red" />
-              
-                <FontAwesome name="heart-o" size={24} color="black" />
-        
-            </TouchableOpacity> */}
+   
     </View>
   );
 
@@ -79,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
       renderItem={renderProduct} 
       keyExtractor={item => item.id.toString()} 
       contentContainerStyle={styles.productList}
-      numColumns={2} // Change to 2 columns
+      numColumns={2} 
     />
   );
 };
